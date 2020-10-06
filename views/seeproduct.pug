@@ -1,0 +1,35 @@
+extends layout
+
+block content
+ .container
+  
+  -var image="/images/"+ product.getImgProducto()
+  -var id=product.getIdProducto()
+  img.mr-3(src = image, width = '500', height = "500")
+  .col-md-6
+   button.btn.btn-primary.mr-1(type='button' data-toggle='modal' data-target='#updateproductModal') Update Product
+   button.btn.btn-danger.mr-1(type='button' data-toggle='modal' data-target='#deleteproductModal') Delete Product
+   a.btn.btn-secondary(href="/" ) List of Products
+ #deleteproductModal.modal.fade
+   .modal-dialog
+    .modal-content
+      .modal-header
+       h4.modal-title Delete Product
+      .modal-body 
+       | Are you sure you want to delete this product?
+      .modal-footer
+         a.btn.btn-danger(href="/delete/"+id ) Delete Product
+         button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+ #updateproductModal.modal.fade
+   .modal-dialog
+    .modal-content
+      .modal-header
+       h4.modal-title Update Product
+      .modal-body 
+       form(method='post',action="/updateproduct/"+id, enctype='multipart/form-data')
+        .form-group
+         input#image_uploads(type='file', name='file', accept='image/*' required) 
+        .modal-footer
+         input.btn.btn-primary(type='submit', value='Update Product')
+         button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+ 

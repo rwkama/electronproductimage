@@ -1,0 +1,30 @@
+extends layout
+
+block content
+ .container
+  button.btn.btn-success(type='button' data-toggle='modal' data-target='#addproductModal') Add Product
+  .row.row-cols-3
+   for al in productos
+    -var imagen="images/"+ al.getImgProducto()
+    -var id=al.getIdProducto()
+     ul.list-unstyled
+      li.media
+       img.mr-3(src=imagen,width='250',height="250")
+      .media-body
+        a.btn.btn-info(href="/searchp/"+id ) See Product    
+  #addproductModal.modal.fade
+   .modal-dialog
+    .modal-content
+      .modal-header
+       h4.modal-title Add Product
+      .modal-body 
+       form(method='post',action="/upload", enctype='multipart/form-data')
+        .form-group
+         input#image_uploads(type='file', name='file', accept='image/*' required) 
+        .modal-footer
+         input.btn.btn-success(type='submit', value='Add Product')
+         button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+ 
+
+
+ 
